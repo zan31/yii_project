@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "tom_task".
@@ -25,6 +26,28 @@ class Task extends \yii\db\ActiveRecord
     public function getReports()
     {
         return $this->hasMany(Report::class, ['task_id' => 'id']);
+    }
+
+    public function getProgress()
+    {
+        $query = new Query();
+        $query->select([
+            'tt.id AS task_id',
+            'tt.name AS task_name',
+            'AVG(tr.percent_done) AS task_progress'
+        ])
+            ->from(['tt' => 'tom_task'])
+            ->leftJoin('tom_report tr', 'tt.id = tr.task_id')
+            ->groupBy(['tt.id', 'tt.name'])
+            ->where(['tr.task_id' => $this->id]);
+
+        $result = $query->one();
+
+        if ($result === false) {
+            return 0;
+        }
+
+        return round($result['task_progress'], 2, 2);
     }
 
 

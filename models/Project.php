@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "tom_project".
@@ -23,6 +24,28 @@ class Project extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Task::class, ['project_id' => 'id']);
     }
+
+    public function getProgress()
+    {
+        $query = new Query();
+        $query->select([
+            'COUNT(DISTINCT tt.id) AS total_tasks',
+            'COUNT(DISTINCT CASE WHEN tr.percent_done = 100 THEN tt.id END) AS completed_tasks',
+        ])
+            ->from(['tp' => 'tom_project'])
+            ->leftJoin(['tt' => 'tom_task'], 'tp.id = tt.project_id')
+            ->leftJoin(['tr' => 'tom_report'], 'tt.id = tr.task_id')
+            ->where(['tp.id' => $this->id]);
+
+        $result = $query->one();
+
+        if ($result['total_tasks'] == 0) {
+            return 0;
+        }
+
+        return round(($result['completed_tasks'] / $result['total_tasks']) * 100, 2);
+    }
+
 
     /**
      * {@inheritdoc}

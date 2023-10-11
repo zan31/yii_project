@@ -36,24 +36,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <header id="header">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::$app->name,
+            'brandLabel' => 'Projekt',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark'],
-        ]);
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav'],
-            'items' => [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
-                Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/site/login']]
-                : '<li class="nav-item">'
-                . Html::beginForm(['/site/logout'])
-                . Html::submitButton('Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'nav-link btn btn-link logout'])
-                . Html::endForm()
-                . '</li>',
-            ],
         ]);
         NavBar::end();
         ?>
@@ -62,17 +47,17 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <main id="main" class="flex-shrink-0 d-flex">
         <nav class="col-md-2 d-none d-md-block bg-dark sidebar" style="min-height: 100vh;">
             <!-- Sidebar content -->
-            <ul class="nav flex-column">
+            <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a href="#" class="nav-link active" aria-current="page">
                         Home
                     </a>
                 </li>
-                <!-- Add more sidebar items as needed -->
             </ul>
+
         </nav>
 
-        <div class="col-md-8 d-flex justify-content-center text-center">
+        <div class="col-md-8 d-flex">
             <div class="container">
                 <?php if (!empty($this->params['breadcrumbs'])): ?>
                     <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
