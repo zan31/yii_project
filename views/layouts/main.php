@@ -38,7 +38,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         NavBar::begin([
             'brandLabel' => Yii::$app->name,
             'brandUrl' => Yii::$app->homeUrl,
-            'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top'],
+            'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark'],
         ]);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
@@ -62,19 +62,17 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <main id="main" class="flex-shrink-0 d-flex">
         <nav class="col-md-2 d-none d-md-block bg-dark sidebar" style="min-height: 100vh;">
             <!-- Sidebar content -->
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            Home
-                        </a>
-                    </li>
-                    <!-- Add more sidebar items as needed -->
-                </ul>
-            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Home
+                    </a>
+                </li>
+                <!-- Add more sidebar items as needed -->
+            </ul>
         </nav>
 
-        <div class="col-md-8">
+        <div class="col-md-8 d-flex justify-content-center text-center">
             <div class="container">
                 <?php if (!empty($this->params['breadcrumbs'])): ?>
                     <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
