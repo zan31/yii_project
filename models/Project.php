@@ -29,8 +29,8 @@ class Project extends \yii\db\ActiveRecord
     {
         $query = new Query();
         $query->select([
+            'SUM(tr.percent_done) AS progress',
             'COUNT(DISTINCT tt.id) AS total_tasks',
-            'COUNT(DISTINCT CASE WHEN tr.percent_done = 100 THEN tt.id END) AS completed_tasks',
         ])
             ->from(['tp' => 'tom_project'])
             ->leftJoin(['tt' => 'tom_task'], 'tp.id = tt.project_id')
@@ -43,7 +43,7 @@ class Project extends \yii\db\ActiveRecord
             return 0;
         }
 
-        return round(($result['completed_tasks'] / $result['total_tasks']) * 100, 2);
+        return round(($result['progress'] / $result['total_tasks']), 2);
     }
 
 

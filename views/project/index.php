@@ -1,6 +1,5 @@
 <?php
-use yii\bootstrap5\Progress;
-use app\models\Project;
+use yii\helpers\Html;
 
 ?>
 <div class="row">
@@ -10,9 +9,9 @@ use app\models\Project;
         foreach ($projects as $project):
             $tasks = $project->tasks;
             $progress = $project->getProgress();
-            if ($progress == 100) {
+            if ($progress >= 100) {
                 $color = 'bg-success';
-            } else if ($progress > 50) {
+            } else if ($progress >= 50 && $progress < 100) {
                 $color = 'bg-warning';
             } else {
                 $color = 'bg-danger';
@@ -23,15 +22,11 @@ use app\models\Project;
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target='#collapse<?= $project->id ?>' aria-expanded="false"
                     aria-controls='collapse<?= $project->id ?>'>
-                    <div class="col-1">
-                        <?= $project->name ?>
-                    </div>
+                    <?= Html::tag('div', Html::encode($project->name), ['class' => 'col-1']) ?>
                     <div class="col-9">
-                        <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow='33%'
-                            aria-valuemin="0" aria-valuemax="100">
-                            <div class='progress-bar <?= $color ?>' style='width:  <?= $progress ?>%;'>
-                                <?= $progress ?>%
-                            </div>
+                        <div class="progress" role="progressbar" aria-label="Example with label"
+                            aria-valuenow="<?= $progress ?>%" aria-valuemin="0" aria-valuemax="100">
+                            <?= Html::tag('div', Html::encode($progress), ['class' => "progress-bar $color", 'style' => "width: $progress%;"]) ?>
                         </div>
                     </div>
 
@@ -44,24 +39,21 @@ use app\models\Project;
                         foreach ($tasks as $task):
                             $progress_task = $task->getProgress();
 
-                            if ($progress_task == 100) {
+                            if ($progress_task >= 100) {
                                 $color_t = 'bg-success';
-                            } else if ($progress_task > 50) {
+                            } else if ($progress_task >= 50 && $progress_task < 100) {
                                 $color_t = 'bg-warning';
                             } else {
                                 $color_t = 'bg-danger';
                             }
                             ?>
                             <div class="row">
-                                <div class="col-1">
-                                    <?= $task->name ?>
-                                </div>
+                                <?= Html::tag('div', Html::encode($task->name), ['class' => 'col-1']) ?>
+
                                 <div class="col-9">
-                                    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow='33%'
-                                        aria-valuemin="0" aria-valuemax="100">
-                                        <div class='progress-bar <?= $color_t ?>' style='width:  <?= $progress_task ?>%;'>
-                                            <?= $progress_task ?>%
-                                        </div>
+                                    <div class="progress" role="progressbar" aria-label="Example with label"
+                                        aria-valuenow="<?= $progress_task ?>%" aria-valuemin="0" aria-valuemax="100">
+                                        <?= Html::tag('div', Html::encode($progress_task), ['class' => "progress-bar $color_t", 'style' => "width: $progress_task%;"]) ?>
                                     </div>
                                 </div>
                                 <?php

@@ -34,7 +34,7 @@ class Task extends \yii\db\ActiveRecord
         $query->select([
             'tt.id AS task_id',
             'tt.name AS task_name',
-            'AVG(tr.percent_done) AS task_progress'
+            'SUM(tr.percent_done) AS task_progress'
         ])
             ->from(['tt' => 'tom_task'])
             ->leftJoin('tom_report tr', 'tt.id = tr.task_id')
@@ -47,7 +47,7 @@ class Task extends \yii\db\ActiveRecord
             return 0;
         }
 
-        return round($result['task_progress'], 2, 2);
+        return round($result['task_progress'], 2);
     }
 
 
