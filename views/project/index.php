@@ -29,8 +29,8 @@ use app\models\Project;
                     <div class="col-9">
                         <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow='33%'
                             aria-valuemin="0" aria-valuemax="100">
-                            <div class='progress-bar <?= $color ?>' style='width:  <?= $project->getProgress() ?>%;'>
-                                <?= $project->getProgress() ?>%
+                            <div class='progress-bar <?= $color ?>' style='width:  <?= $progress ?>%;'>
+                                <?= $progress ?>%
                             </div>
                         </div>
                     </div>

@@ -11,14 +11,10 @@ class ProjectController extends Controller
 {
     public function actionIndex()
     {
-        $tasks = Task::find()->all();
         $projects = Project::find()->all();
-        $reports = Report::find()->all();
 
         return $this->render('index', [
-            'tasks' => $tasks,
             'projects' => $projects,
-            'reports' => $reports,
         ]);
     }
 }
